@@ -1,0 +1,13 @@
+[package]
+name = "gtk_grid"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+glib = "0.15.12"
+
+[dependencies.gtk]
+version = "0.15.5"
+features = ["v3_22"]
