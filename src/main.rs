@@ -1,7 +1,6 @@
 use glib::clone;
 // use gtk::glib;
 use gtk::prelude::*;
-use std::ops::Add;
 
 fn main() {
     let application = gtk::Application::new(
@@ -40,26 +39,29 @@ fn build_ui(application: &gtk::Application) {
     // let vertical_box = Box::new(Orientation::Vertical, padding_between_children);
 
     // Create the first button and put it into the grid at (0, 0)
-    let button_1 = gtk::Button::with_label("Button 1");
-    button_1.connect_clicked(move |_| calculate("1"));
+    let button_1 = gtk::Button::with_label("Number 1");
+    button_1.connect_clicked(move |_| {
+        one();
+        println!("1")
+    });
     grid.attach(&button_1, 0, 0, 1, 1);
 
     // Create the second button and put it into the grid at (1, 0)
-    let button_2 = gtk::Button::with_label("Button 2");
-    button_2.connect_clicked(move |_| calculate("+"));
+    let button_2 = gtk::Button::with_label("Number 2");
+    button_2.connect_clicked(move |_| {
+        two();
+        println!("2")
+    });
     grid.attach(&button_2, 1, 0, 1, 1);
 
-    let button_3 = gtk::Button::with_label("Button 3");
-    button_3.connect_clicked(move |_| calculate("2"));
+    let button_3 = gtk::Button::with_label("Calculate");
+    button_3.connect_clicked(move |_| calculate());
     grid.attach(&button_3, 0, 1, 2, 1);
 
     // let args: Vec<_> = std::env::args().collect(); // get all arguements passed to app
     
-    let button_4 = gtk::Button::with_label("Button 4");
-    button_4.connect_clicked(move |_| {
-        println!("Hello World 4");
-        calculate("=")
-    });
+    let button_4 = gtk::Button::with_label("Hello World");
+    button_4.connect_clicked(move |_| println!("Hello World"));
     grid.attach(&button_4, 0, 2, 2, 1);
 
     // Create the quit button and put it into the grid at (0, 1)
@@ -74,13 +76,9 @@ fn build_ui(application: &gtk::Application) {
     window.show_all();
 }
 
-fn calculate(input: &str) {
-    let first = if input == "1" {1} else {1};
-    // let plus = "";
-    let second = if input == "2" {2} else {2};
-    let result = match input {
-        "=" => first + second,
-        _ => 0,
-    };
-    println!("calculate: {}", result);
+fn one() -> f32 { 1.0 }
+fn two() -> f32 { 2.0 }
+
+fn calculate() {
+    println!("The result is {}", one() + two());
 }
