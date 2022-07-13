@@ -33,18 +33,11 @@ fn build_ui(application: &gtk::Application) {
     // Add the grid in the window
     window.set_child(Some(&grid));
 
-/*
-let padding_between_children = 0;
-let horizontal_box = Box::new(Orientation::Horizontal, padding_between_children);
-let vertical_box = Box::new(Orientation::Vertical, padding_between_children);
-*/
+    // let padding_between_children = 0;
+    // Box::new() expected 1 argument!!!
+    // let horizontal_box = Box::new(Orientation::Horizontal, padding_between_children);
+    // let vertical_box = Box::new(Orientation::Vertical, padding_between_children);
 
-    /* 
-    1 - Position from left to the right
-    2 - Position from top to the bottom
-    3 - Width
-    4 - Height
-    */
     // Create the first button and put it into the grid at (0, 0)
     let button_1 = gtk::Button::with_label("Button 1");
     button_1.connect_clicked(move |_| println!("Hello World 1"));
@@ -59,9 +52,14 @@ let vertical_box = Box::new(Orientation::Vertical, padding_between_children);
     button_3.connect_clicked(move |_| println!("Hello World 3"));
     grid.attach(&button_3, 0, 1, 2, 1);
 
+    // let args: Vec<_> = std::env::args().collect(); // get all arguements passed to app
+    
     let button_4 = gtk::Button::with_label("Button 4");
-    button_4.connect_clicked(move |_| println!("Hello World 4"));
-    grid.attach(&button_4, 0, 2, 2, 1); // whar 4th digit for?
+    button_4.connect_clicked(move |_| {
+        println!("Hello World 4");
+        calculate("something")
+    });
+    grid.attach(&button_4, 0, 2, 2, 1);
 
     // Create the quit button and put it into the grid at (0, 1)
     let quit_button = gtk::Button::with_label("Quit");
@@ -73,4 +71,9 @@ let vertical_box = Box::new(Orientation::Vertical, padding_between_children);
     grid.attach(&quit_button, 2, 0, 1, 3);
 
     window.show_all();
+}
+
+fn calculate<T: std::fmt::Display>(input: T) {
+    let first = format!("{}", input);
+    println!("{}", first)
 }
