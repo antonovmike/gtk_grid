@@ -38,6 +38,7 @@ pub fn build_ui(application: &gtk::Application) {
     // grid.attach(&horizontal_box, 3, 1, 1, 4);
 
     // Create DISPLAY and ENTRY
+    // single line text entry widget
     let display = Entry::builder()
         .margin_start(margin)
         .margin_top(margin)
@@ -55,7 +56,10 @@ pub fn build_ui(application: &gtk::Application) {
     // --> ROW 1
     // Create the first button and put it into the grid at (0, 0, x, x)
     let button_1 = gtk::Button::with_label("Button 1");
-    button_1.connect_clicked(move |_| println!("Button 1"));
+    button_1.connect_clicked(move |_| {
+        let i: u8 = rand::random();
+        println!("Button 1: {}", i)
+    });
     grid.attach(&button_1, 0, 1, 1, 1);
 
     // Create the second button and put it into the grid at (1, 0, x, x)
