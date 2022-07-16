@@ -1,5 +1,4 @@
 use glib::clone;
-// use gtk::glib;
 use gtk::prelude::*;
 use gtk::Entry;
 
@@ -26,10 +25,17 @@ pub fn build_ui(application: &gtk::Application) {
     // Add the grid in the window
     window.set_child(Some(&grid));
 
+    // TRY LATER
+    // ??? Is it possible to attach Box to Grid?
+    // !!! the trait bound `std::boxed::Box<{integer}>: glib::IsA<gtk::Widget>` is not satisfied
     // let padding_between_children = 0;
-    // Box::new() expected 1 argument!!!
+    // !!! Box::new() expected 1 argument!!!
     // let horizontal_box = Box::new(Orientation::Horizontal, padding_between_children);
     // let vertical_box = Box::new(Orientation::Vertical, padding_between_children);
+    // !!! So this is works
+    // let horizontal_box = Box::new(padding_between_children);
+    // let vertical_box = Box::new(padding_between_children);
+    // grid.attach(&horizontal_box, 3, 1, 1, 4);
 
     // Create DISPLAY and ENTRY
     let display = Entry::builder()
@@ -40,8 +46,13 @@ pub fn build_ui(application: &gtk::Application) {
         .build();
     grid.attach(&display, 0, 0, 3 ,1);
     
-    // BUTTONS
-    // ROW 1
+    // let label_1 = gtk::Label::label("expected reference `&gtk::Label`");
+    // let label_1 = gtk::Label::label(&gtk::Label { inner: 1, phantom: 2 } );
+    // let label_1 = gtk::Label::set_selectable(&gtk::Label, true);
+    // let label_1 = gtk::Label::set_wrap("FIX IT", false);
+
+    // --> BUTTONS
+    // --> ROW 1
     // Create the first button and put it into the grid at (0, 0, x, x)
     let button_1 = gtk::Button::with_label("Button 1");
     button_1.connect_clicked(move |_| println!("Button 1"));
@@ -56,7 +67,7 @@ pub fn build_ui(application: &gtk::Application) {
     button_3.connect_clicked(move |_| println!("Button 3"));
     grid.attach(&button_3, 2, 1, 1, 1);
     
-    // ROW 2
+    // --> ROW 2
     let button_4 = gtk::Button::with_label("Button 4");
     button_4.connect_clicked(move |_| println!("Button 4"));
     grid.attach(&button_4, 0, 2, 1, 1);
@@ -69,7 +80,7 @@ pub fn build_ui(application: &gtk::Application) {
     button_6.connect_clicked(move |_| println!("Button 6"));
     grid.attach(&button_6, 2, 2, 1, 1);
     
-    // ROW 3
+    // --> ROW 3
     let button_7 = gtk::Button::with_label("Button 7");
     button_7.connect_clicked(move |_| println!("Button 7"));
     grid.attach(&button_7, 0, 3, 1, 1);
@@ -82,11 +93,12 @@ pub fn build_ui(application: &gtk::Application) {
     button_9.connect_clicked(move |_| println!("Button 9"));
     grid.attach(&button_9, 2, 3, 1, 1);
 
-    // ROW 3
+    // --> ROW 4
     let button_0 = gtk::Button::with_label("Button 0");
     button_0.connect_clicked(move |_| println!("Button 0"));
     grid.attach(&button_0, 1, 4, 1, 1);
 
+    // --> ROW 2 COLUMN 4
     // Create the quit button and put it into the grid at (3, 1) with Width = 1 and Height = 4
     let quit_button = gtk::Button::with_label("Quit");
     quit_button.connect_clicked(clone!(@weak window => move |_| 

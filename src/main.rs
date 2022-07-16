@@ -1,5 +1,3 @@
-// use glib::clone;
-// use gtk::glib;
 use gtk::prelude::*;
 
 mod gui;
