@@ -3,6 +3,7 @@ use gtk::Label;
 use glib::clone;
 use gtk::prelude::*;
 use gtk::Entry;
+use chrono::Local;
 
 pub fn build_ui(application: &gtk::Application) {
     // Create a new window, set it's title and default size
@@ -106,6 +107,12 @@ pub fn build_ui(application: &gtk::Application) {
         counter_label.set_text(&format!("{}", nb - 1.0));
     }));
     grid.attach(&minus_button, 2, 4, 1, 1);
+
+    // TIMER
+    let time = format!("{}", Local::now().format("%Y-%m-%d %H:%M:%S"));
+    let label_time = gtk::Label::new(None);
+    label_time.set_text(&time);
+    grid.attach(&label_time, 0, 6, 3, 1);
 
     // --> ROW 2 COLUMN 4
     // Create the quit button and put it into the grid at (3, 1) with Width = 1 and Height = 4
