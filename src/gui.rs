@@ -1,4 +1,5 @@
 // extern crate gdk;
+use gtk::Label;
 use glib::clone;
 use gtk::prelude::*;
 use gtk::Entry;
@@ -9,7 +10,8 @@ pub fn build_ui(application: &gtk::Application) {
     let window = gtk::ApplicationWindow::new(application);
     window.set_title("GTK grid");
     window.set_default_size(200, 120);
-
+    
+    // --> listen for keyboard events
     window.connect("key_press_event", false, |values| {
         // "values" is a 2-long slice of glib::value::Value, which wrap G-types
         // You can unwrap them if you know what type they are going to be ahead of time
@@ -35,6 +37,7 @@ pub fn build_ui(application: &gtk::Application) {
         Some(result)
     });
     // .unwrap();
+    // --> listen for keyboard events
 
     let margin = 6;
 
@@ -75,10 +78,9 @@ pub fn build_ui(application: &gtk::Application) {
         .build();
     grid.attach(&display, 0, 0, 3 ,1);
     
-    // let label_1 = gtk::Label::label("expected reference `&gtk::Label`");
-    // let label_1 = gtk::Label::label(&gtk::Label { inner: 1, phantom: 2 } );
-    // let label_1 = gtk::Label::set_selectable(&gtk::Label, true);
-    // let label_1 = gtk::Label::set_wrap("FIX IT", false);
+    // LABEL
+    let counter_label = Label::new(Some("0"));
+    grid.attach(&counter_label, 0, 5, 4, 1);
 
     // --> BUTTONS
     // --> ROW 1
@@ -126,9 +128,27 @@ pub fn build_ui(application: &gtk::Application) {
     grid.attach(&button_9, 2, 3, 1, 1);
 
     // --> ROW 4
+    let plus_button = gtk::Button::with_label("+");
+    plus_button.connect_clicked(glib::clone!(@weak counter_label => move |_| {
+        let nb = counter_label.text()
+            .parse()
+            .unwrap_or(0);
+        counter_label.set_text(&format!("{}", nb + 1));
+    }));
+    grid.attach(&plus_button, 0, 4, 1, 1);
     let button_0 = gtk::Button::with_label("Button 0");
     button_0.connect_clicked(move |_| println!("Button 0"));
     grid.attach(&button_0, 1, 4, 1, 1);
+    let minus_button = gtk::Button::with_label("-");
+    minus_button.connect_clicked(glib::clone!(@weak counter_label => move |_| {
+        let nb = counter_label.text()
+            .parse()
+            .unwrap_or(0);
+        if nb > 0 {
+            counter_label.set_text(&format!("{}", nb - 1));
+        }
+    }));
+    grid.attach(&minus_button, 2, 4, 1, 1);
 
     // --> ROW 2 COLUMN 4
     // Create the quit button and put it into the grid at (3, 1) with Width = 1 and Height = 4
