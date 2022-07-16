@@ -12,3 +12,9 @@ grid.attach(&button, 0, 0, 1, 1);
 3 - Width
 
 4 - Height
+
+----------
+
+How to attach Box to Grid?
+
+How gtk::Label works?
