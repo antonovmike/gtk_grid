@@ -77,10 +77,6 @@ pub fn build_ui(application: &gtk::Application) {
         .margin_bottom(margin)
         .build();
     grid.attach(&display, 0, 0, 3 ,1);
-    
-    // LABEL
-    let counter_label = Label::new(Some("0"));
-    grid.attach(&counter_label, 0, 5, 4, 1);
 
     // --> BUTTONS
     // --> ROW 1
@@ -126,6 +122,10 @@ pub fn build_ui(application: &gtk::Application) {
     let button_9 = gtk::Button::with_label("Button 9");
     button_9.connect_clicked(move |_| println!("Button 9"));
     grid.attach(&button_9, 2, 3, 1, 1);
+    
+    // LABEL
+    let counter_label = Label::new(Some("0"));
+    grid.attach(&counter_label, 0, 5, 4, 1);
 
     // --> ROW 4
     let plus_button = gtk::Button::with_label("+");
@@ -144,9 +144,7 @@ pub fn build_ui(application: &gtk::Application) {
         let nb = counter_label.text()
             .parse()
             .unwrap_or(0);
-        if nb > 0 {
-            counter_label.set_text(&format!("{}", nb - 1));
-        }
+        counter_label.set_text(&format!("{}", nb - 1));
     }));
     grid.attach(&minus_button, 2, 4, 1, 1);
 
