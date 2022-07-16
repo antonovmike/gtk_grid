@@ -1,12 +1,40 @@
+// extern crate gdk;
 use glib::clone;
 use gtk::prelude::*;
 use gtk::Entry;
+use gdk;
 
 pub fn build_ui(application: &gtk::Application) {
     // Create a new window, set it's title and default size
     let window = gtk::ApplicationWindow::new(application);
     window.set_title("GTK grid");
     window.set_default_size(200, 120);
+
+    window.connect("key_press_event", false, |values| {
+        // "values" is a 2-long slice of glib::value::Value, which wrap G-types
+        // You can unwrap them if you know what type they are going to be ahead of time
+        // values[0] is the window and values[1] is the event
+        let raw_event = &values[1].get::<gdk::Event>().unwrap();
+        // You have to cast to the correct event type to access some of the fields
+        match raw_event.downcast_ref::<gdk::EventKey>() {
+            Some(event) => {
+                // get_state() FIX IT
+                // println!("key value: {:?}", std::char::from_u32(event.get_keyval()));
+                // println!("modifiers: {:?}", event.get_state());
+                println!("modifiers: {:?}", event);
+            },
+            None => {},
+        }
+
+        // You need to return Some() of a glib Value wrapping a bool
+        // associated item not found in `glib::Type`rustc(E0599)
+        // let result = glib::value::Value::from_type(glib::types::Type::Bool);
+        let result = glib::value::Value::from_type(glib::types::Type::BOOL);
+        // I can't figure out how to actually set the value of result
+        // Luckally returning false is good enough for now.
+        Some(result)
+    });
+    // .unwrap();
 
     let margin = 6;
 

@@ -8,6 +8,7 @@ edition = "2021"
 [dependencies]
 glib = "0.15.12"
 rand = "0.8.5"
+gdk = "0.15.4"
 
 [dependencies.gtk]
 version = "0.15.5"
