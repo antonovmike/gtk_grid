@@ -1,5 +1,4 @@
 use glib::clone;
-// use gtk::glib;
 use gtk::prelude::*;
 use gtk::Entry;
 
@@ -25,11 +24,6 @@ pub fn build_ui(application: &gtk::Application) {
 
     // Add the grid in the window
     window.set_child(Some(&grid));
-
-    // let padding_between_children = 0;
-    // Box::new() expected 1 argument!!!
-    // let horizontal_box = Box::new(Orientation::Horizontal, padding_between_children);
-    // let vertical_box = Box::new(Orientation::Vertical, padding_between_children);
 
     // Create DISPLAY and ENTRY
     let display = Entry::builder()
