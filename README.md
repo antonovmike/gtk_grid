@@ -13,8 +13,12 @@ grid.attach(&button, 0, 0, 1, 1);
 
 4 - Height
 
+Entry single line text entry widget
+
+Label::new(Some("0")) works and shows some data if linked button has clicked
+
+https://gtk-rs.org/gtk3-rs/stable/latest/docs/gtk/struct.Entry.html
+
 ----------
 
 How to attach Box to Grid?
-
-How gtk::Label works?

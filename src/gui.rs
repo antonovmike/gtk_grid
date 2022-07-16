@@ -1,3 +1,5 @@
+// extern crate gdk;
+use gtk::Label;
 use glib::clone;
 use gtk::prelude::*;
 use gtk::Entry;
@@ -26,6 +28,7 @@ pub fn build_ui(application: &gtk::Application) {
     window.set_child(Some(&grid));
 
     // Create DISPLAY and ENTRY
+    // single line text entry widget
     let display = Entry::builder()
         .margin_start(margin)
         .margin_top(margin)
@@ -34,11 +37,18 @@ pub fn build_ui(application: &gtk::Application) {
         .build();
     grid.attach(&display, 0, 0, 3 ,1);
     
-    // BUTTONS
-    // ROW 1
+    // LABEL
+    let counter_label = Label::new(Some("0"));
+    grid.attach(&counter_label, 0, 5, 4, 1);
+
+    // --> BUTTONS
+    // --> ROW 1
     // Create the first button and put it into the grid at (0, 0, x, x)
     let button_1 = gtk::Button::with_label("Button 1");
-    button_1.connect_clicked(move |_| println!("Button 1"));
+    button_1.connect_clicked(move |_| {
+        let i: u8 = rand::random();
+        println!("Button 1: {}", i)
+    });
     grid.attach(&button_1, 0, 1, 1, 1);
 
     // Create the second button and put it into the grid at (1, 0, x, x)
@@ -50,7 +60,7 @@ pub fn build_ui(application: &gtk::Application) {
     button_3.connect_clicked(move |_| println!("Button 3"));
     grid.attach(&button_3, 2, 1, 1, 1);
     
-    // ROW 2
+    // --> ROW 2
     let button_4 = gtk::Button::with_label("Button 4");
     button_4.connect_clicked(move |_| println!("Button 4"));
     grid.attach(&button_4, 0, 2, 1, 1);
@@ -63,7 +73,7 @@ pub fn build_ui(application: &gtk::Application) {
     button_6.connect_clicked(move |_| println!("Button 6"));
     grid.attach(&button_6, 2, 2, 1, 1);
     
-    // ROW 3
+    // --> ROW 3
     let button_7 = gtk::Button::with_label("Button 7");
     button_7.connect_clicked(move |_| println!("Button 7"));
     grid.attach(&button_7, 0, 3, 1, 1);
@@ -76,11 +86,30 @@ pub fn build_ui(application: &gtk::Application) {
     button_9.connect_clicked(move |_| println!("Button 9"));
     grid.attach(&button_9, 2, 3, 1, 1);
 
-    // ROW 3
+    // --> ROW 4
+    let plus_button = gtk::Button::with_label("+");
+    plus_button.connect_clicked(glib::clone!(@weak counter_label => move |_| {
+        let nb = counter_label.text()
+            .parse()
+            .unwrap_or(0);
+        counter_label.set_text(&format!("{}", nb + 1));
+    }));
+    grid.attach(&plus_button, 0, 4, 1, 1);
     let button_0 = gtk::Button::with_label("Button 0");
     button_0.connect_clicked(move |_| println!("Button 0"));
     grid.attach(&button_0, 1, 4, 1, 1);
+    let minus_button = gtk::Button::with_label("-");
+    minus_button.connect_clicked(glib::clone!(@weak counter_label => move |_| {
+        let nb = counter_label.text()
+            .parse()
+            .unwrap_or(0);
+        if nb > 0 {
+            counter_label.set_text(&format!("{}", nb - 1));
+        }
+    }));
+    grid.attach(&minus_button, 2, 4, 1, 1);
 
+    // --> ROW 2 COLUMN 4
     // Create the quit button and put it into the grid at (3, 1) with Width = 1 and Height = 4
     let quit_button = gtk::Button::with_label("Quit");
     quit_button.connect_clicked(clone!(@weak window => move |_| 
