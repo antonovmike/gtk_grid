@@ -155,6 +155,16 @@ pub fn build_ui(application: &gtk::Application) {
     label_time.set_text(&time);
     grid.attach(&label_time, 0, 6, 3, 1);
 
+    // Changing time
+    let tick = move || {
+        let time = format!("{}", Local::now().format("%Y-%m-%d %H:%M:%S"));
+        label_time.set_text(&time);
+        // How it works?
+        glib::Continue(true)
+    };
+    // First digit means rate of time update inseconds
+    glib::timeout_add_seconds_local(1, tick);
+
     // --> ROW 2 COLUMN 4
     // Create the quit button and put it into the grid at (3, 1) with Width = 1 and Height = 4
     let quit_button = gtk::Button::with_label("Quit");
