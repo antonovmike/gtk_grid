@@ -1,10 +1,9 @@
+use crate::buttons::create_label;
 use crate::buttons::create_entry;
 use crate::buttons::create_button;
-// extern crate gdk;
-use gtk::Label;
+// use gtk::Label;
 use glib::clone;
 use gtk::prelude::*;
-use gtk::Entry;
 use gdk;
 use chrono::Local;
 
@@ -24,8 +23,6 @@ pub fn build_ui(application: &gtk::Application) {
         match raw_event.downcast_ref::<gdk::EventKey>() {
             Some(event) => {
                 // get_state() FIX IT
-                // println!("key value: {:?}", std::char::from_u32(event.get_keyval()));
-                // println!("modifiers: {:?}", event.get_state());
                 println!("modifiers: {:?}", event);
             },
             None => {},
@@ -113,7 +110,8 @@ pub fn build_ui(application: &gtk::Application) {
     grid.attach(&button_9, 2, 3, 1, 1);
     
     // --> ROW 5 - LABEL
-    let counter_label = Label::new(Some("0.0"));
+    // let counter_label = Label::new(Some("0.0"));
+    let counter_label = create_label(Some("0.0"));
     grid.attach(&counter_label, 0, 5, 4, 1);
 
     // --> ROW 4
