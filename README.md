@@ -1,5 +1,9 @@
 # gtk_grid
+![calculator_gtk](https://github.com/antonovmike/calculator_gtk/blob/main/Screenshot.png)
+
 Making grid of buttons uing only GTK (no extra files like grid.ui).
+
+Explanation https://dev.to/antonov_mike/making-gtk-keyboard-on-rust-2fma
 
 Using unsafe block in quit_button closure.
 
