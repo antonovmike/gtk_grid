@@ -3,7 +3,6 @@ use crate::buttons::create_entry;
 use crate::buttons::create_button;
 use glib::clone;
 use gtk::prelude::*;
-use gdk;
 use chrono::Local;
 
 pub fn build_ui(application: &gtk::Application) {

@@ -1,5 +1,5 @@
 # gtk_grid
-![calculator_gtk](https://github.com/antonovmike/calculator_gtk/blob/main/Screenshot.png)
+![calculator_gtk](https://github.com/antonovmike/gtk_grid/blob/main/Screenshot.png)
 
 Making grid of buttons uing only GTK (no extra files like grid.ui).
 
