@@ -1,3 +1,5 @@
+use crate::buttons::create_entry;
+use crate::buttons::create_button;
 // extern crate gdk;
 use gtk::Label;
 use glib::clone;
@@ -70,12 +72,7 @@ pub fn build_ui(application: &gtk::Application) {
 
     // Create DISPLAY and ENTRY
     // single line text entry widget
-    let entry = Entry::builder()
-        .margin_start(margin)
-        .margin_top(margin)
-        .margin_end(margin)
-        .margin_bottom(margin)
-        .build();
+    let entry = create_entry();
     grid.attach(&entry, 0, 0, 4 ,1);
 
 // --> KEYBOARD STARTS HERE <--
@@ -83,9 +80,9 @@ pub fn build_ui(application: &gtk::Application) {
     // (0, 0, x, x) = (horizontal, vertical, width, height)
 
     // --> ROW 1
-    let button_1 = gtk::Button::with_label("Button 1");
-    let button_2 = gtk::Button::with_label("Button 2");
-    let button_3 = gtk::Button::with_label("Button 3");
+    let button_1 = create_button("Button 1");
+    let button_2 = create_button("Button 2");
+    let button_3 = create_button("Button 3");
     button_1.connect_clicked(move |_| println!("Button 1"));
     button_2.connect_clicked(move |_| println!("Button 2"));
     button_3.connect_clicked(move |_| println!("Button 3"));
@@ -94,9 +91,9 @@ pub fn build_ui(application: &gtk::Application) {
     grid.attach(&button_3, 2, 1, 1, 1);
     
     // --> ROW 2
-    let button_4 = gtk::Button::with_label("Button 4");
-    let button_5 = gtk::Button::with_label("Button 5");
-    let button_6 = gtk::Button::with_label("Button 6");
+    let button_4 = create_button("Button 4");
+    let button_5 = create_button("Button 5");
+    let button_6 = create_button("Button 6");
     button_4.connect_clicked(move |_| println!("Button 4"));
     button_5.connect_clicked(move |_| println!("Button 5"));
     button_6.connect_clicked(move |_| println!("Button 6"));
@@ -105,9 +102,9 @@ pub fn build_ui(application: &gtk::Application) {
     grid.attach(&button_6, 2, 2, 1, 1);
     
     // --> ROW 3
-    let button_7 = gtk::Button::with_label("Button 7");
-    let button_8 = gtk::Button::with_label("Button 8");
-    let button_9 = gtk::Button::with_label("Button 9");
+    let button_7 = create_button("Button 7");
+    let button_8 = create_button("Button 8");
+    let button_9 = create_button("Button 9");
     button_7.connect_clicked(move |_| println!("Button 7"));
     button_8.connect_clicked(move |_| println!("Button 8"));
     button_9.connect_clicked(move |_| println!("Button 9"));
@@ -121,7 +118,7 @@ pub fn build_ui(application: &gtk::Application) {
 
     // --> ROW 4
     let plus_button = gtk::Button::with_label("+");
-    let button_0 = gtk::Button::with_label("Button 0");
+    let button_0 = create_button("Button 0");
     let minus_button = gtk::Button::with_label("-");
     plus_button.connect_clicked(glib::clone!(@weak counter_label => move |_| {
         let nb = counter_label.text()

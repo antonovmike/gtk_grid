@@ -1,6 +1,7 @@
 use gtk::prelude::*;
 
 mod gui;
+mod buttons;
 
 fn main() {
     let application = gtk::Application::new(
