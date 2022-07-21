@@ -34,7 +34,6 @@ pub fn build_ui(application: &gtk::Application) {
 
 // --> KEYBOARD STARTS HERE <--
     // Create button and put it into the grid at
-    // (0, 0, x, x) = (horizontal, vertical, width, height)
 
     // --> NUMERIC BUTTONS
     let button_1 = create_button("Button 1");
@@ -91,21 +90,22 @@ pub fn build_ui(application: &gtk::Application) {
         }
     ));
 
-    grid.attach(&button_1, 0, 1, 1, 1);
-    grid.attach(&button_2, 1, 1, 1, 1);
-    grid.attach(&button_3, 2, 1, 1, 1);
-    grid.attach(&button_4, 0, 2, 1, 1);
-    grid.attach(&button_5, 1, 2, 1, 1);
-    grid.attach(&button_6, 2, 2, 1, 1);
-    grid.attach(&button_7, 0, 3, 1, 1);
-    grid.attach(&button_8, 1, 3, 1, 1);
-    grid.attach(&button_9, 2, 3, 1, 1);
-    grid.attach(&button_0, 1, 4, 1, 1);
+    //         (                h, v, w, h)
+    grid.attach(&button_1,      0, 1, 1, 1);
+    grid.attach(&button_2,      1, 1, 1, 1);
+    grid.attach(&button_3,      2, 1, 1, 1);
+    grid.attach(&button_4,      0, 2, 1, 1);
+    grid.attach(&button_5,      1, 2, 1, 1);
+    grid.attach(&button_6,      2, 2, 1, 1);
+    grid.attach(&button_7,      0, 3, 1, 1);
+    grid.attach(&button_8,      1, 3, 1, 1);
+    grid.attach(&button_9,      2, 3, 1, 1);
+    grid.attach(&button_0,      1, 4, 1, 1);
     grid.attach(&counter_label, 0, 5, 4, 1);
     grid.attach(&plus_button,   0, 4, 1, 1);
     grid.attach(&minus_button,  2, 4, 1, 1);
     grid.attach(&label_time,    0, 6, 4, 1); // Borrowed here
-    grid.attach(&quit_button, 3, 1, 1, 4);
+    grid.attach(&quit_button,   3, 1, 1, 4);
 
     // Changing time
     let tick = move || {
