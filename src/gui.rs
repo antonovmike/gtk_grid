@@ -1,18 +1,16 @@
-use crate::buttons::create_label;
-use crate::buttons::create_entry;
 use crate::buttons::create_button;
-// use gtk::Label;
+use crate::buttons::create_entry;
+use crate::buttons::create_label;
+use chrono::Local;
+use gdk;
 use glib::clone;
 use gtk::prelude::*;
-use gdk;
-use chrono::Local;
 
 pub fn build_ui(application: &gtk::Application) {
     // Create a new window, set it's title and default size
     let window = gtk::ApplicationWindow::new(application);
     window.set_title("GTK grid");
     window.set_default_size(200, 120);
-    
     // --> listen for keyboard events
     window.connect("key_press_event", false, |values| {
         // "values" is a 2-long slice of glib::value::Value, which wrap G-types
@@ -24,8 +22,8 @@ pub fn build_ui(application: &gtk::Application) {
             Some(event) => {
                 // get_state() FIX IT
                 println!("modifiers: {:?}", event);
-            },
-            None => {},
+            }
+            None => {}
         }
 
         // You need to return Some() of a glib Value wrapping a bool
@@ -70,9 +68,9 @@ pub fn build_ui(application: &gtk::Application) {
     // Create DISPLAY and ENTRY
     // single line text entry widget
     let entry = create_entry();
-    grid.attach(&entry, 0, 0, 4 ,1);
+    grid.attach(&entry, 0, 0, 4, 1);
 
-// --> KEYBOARD STARTS HERE <--
+    // --> KEYBOARD STARTS HERE <--
     // Create button and put it into the grid at
     // (0, 0, x, x) = (horizontal, vertical, width, height)
 
@@ -89,20 +87,66 @@ pub fn build_ui(application: &gtk::Application) {
     let button_0 = create_button("Button 0");
 
     // --> BUTTON FUNCTION
-    button_1.connect_clicked(move |_| println!("Button 1"));
-    button_2.connect_clicked(move |_| println!("Button 2"));
-    button_3.connect_clicked(move |_| println!("Button 3"));
-    button_4.connect_clicked(move |_| println!("Button 4"));
-    button_5.connect_clicked(move |_| println!("Button 5"));
-    button_6.connect_clicked(move |_| println!("Button 6"));
-    button_7.connect_clicked(move |_| println!("Button 7"));
-    button_8.connect_clicked(move |_| println!("Button 8"));
-    button_9.connect_clicked(move |_| println!("Button 9"));
-    button_0.connect_clicked(move |_| {
-        let i: u8 = rand::random();
-        println!("Button 0: {}", i)
-    });
-  
+    button_1.connect_clicked(clone!(
+        @strong entry =>
+        move |_| {
+            entry.insert_text("1", &mut -1);
+        }
+    ));
+    button_2.connect_clicked(clone!(
+        @strong entry =>
+        move |_| {
+            entry.insert_text("2", &mut -1);
+        }
+    ));
+    button_3.connect_clicked(clone!(
+        @strong entry =>
+        move |_| {
+            entry.insert_text("3", &mut -1);
+        }
+    ));
+    button_4.connect_clicked(clone!(
+        @strong entry =>
+        move |_| {
+            entry.insert_text("4", &mut -1);
+        }
+    ));
+    button_5.connect_clicked(clone!(
+        @strong entry =>
+        move |_| {
+            entry.insert_text("5", &mut -1);
+        }
+    ));
+    button_6.connect_clicked(clone!(
+        @strong entry =>
+        move |_| {
+            entry.insert_text("6", &mut -1);
+        }
+    ));
+    button_7.connect_clicked(clone!(
+        @strong entry =>
+        move |_| {
+            entry.insert_text("7", &mut -1);
+        }
+    ));
+    button_8.connect_clicked(clone!(
+        @strong entry =>
+        move |_| {
+            entry.insert_text("8", &mut -1);
+        }
+    ));
+    button_9.connect_clicked(clone!(
+        @strong entry =>
+        move |_| {
+            entry.insert_text("9", &mut -1);
+        }
+    ));
+    button_0.connect_clicked(clone!(
+        @strong entry =>
+        move |_| {
+            entry.insert_text("0", &mut -1);
+        }
+    ));
     // --> EXTRA BUTTONS
     let counter_label = create_label(Some("0.0"));
     let plus_button = create_button("+");
@@ -125,28 +169,28 @@ pub fn build_ui(application: &gtk::Application) {
             .unwrap_or(0.0);
         counter_label.set_text(&format!("{}", nb - 1.2));
     }));
-    quit_button.connect_clicked(clone!(@weak window => move |_| 
+    quit_button.connect_clicked(clone!(@weak window => move |_|
         unsafe {
             window.destroy()
         }
     ));
 
     //         (                h, v, w, h)
-    grid.attach(&button_1,      0, 1, 1, 1);
-    grid.attach(&button_2,      1, 1, 1, 1);
-    grid.attach(&button_3,      2, 1, 1, 1);
-    grid.attach(&button_4,      0, 2, 1, 1);
-    grid.attach(&button_5,      1, 2, 1, 1);
-    grid.attach(&button_6,      2, 2, 1, 1);
-    grid.attach(&button_7,      0, 3, 1, 1);
-    grid.attach(&button_8,      1, 3, 1, 1);
-    grid.attach(&button_9,      2, 3, 1, 1);
-    grid.attach(&button_0,      1, 4, 1, 1);
+    grid.attach(&button_1, 0, 1, 1, 1);
+    grid.attach(&button_2, 1, 1, 1, 1);
+    grid.attach(&button_3, 2, 1, 1, 1);
+    grid.attach(&button_4, 0, 2, 1, 1);
+    grid.attach(&button_5, 1, 2, 1, 1);
+    grid.attach(&button_6, 2, 2, 1, 1);
+    grid.attach(&button_7, 0, 3, 1, 1);
+    grid.attach(&button_8, 1, 3, 1, 1);
+    grid.attach(&button_9, 2, 3, 1, 1);
+    grid.attach(&button_0, 1, 4, 1, 1);
     grid.attach(&counter_label, 0, 5, 4, 1);
-    grid.attach(&plus_button,   0, 4, 1, 1);
-    grid.attach(&minus_button,  2, 4, 1, 1);
-    grid.attach(&label_time,    0, 6, 4, 1); // Borrowed here
-    grid.attach(&quit_button,   3, 1, 1, 4);
+    grid.attach(&plus_button, 0, 4, 1, 1);
+    grid.attach(&minus_button, 2, 4, 1, 1);
+    grid.attach(&label_time, 0, 6, 4, 1); // Borrowed here
+    grid.attach(&quit_button, 3, 1, 1, 4);
 
     // Changing time
     let tick = move || {
@@ -157,7 +201,7 @@ pub fn build_ui(application: &gtk::Application) {
     // First digit is the rate of time update in seconds
     glib::timeout_add_seconds_local(1, tick);
 
-// --> KEYBOARD ENDS HERE <--
+    // --> KEYBOARD ENDS HERE <--
 
     window.show_all();
 }
