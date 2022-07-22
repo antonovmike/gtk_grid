@@ -48,19 +48,66 @@ pub fn build_ui(application: &gtk::Application) {
     let button_0 = create_button("Button 0");
 
     // --> BUTTON FUNCTION
-    button_1.connect_clicked(move |_| println!("Button 1"));
-    button_2.connect_clicked(move |_| println!("Button 2"));
-    button_3.connect_clicked(move |_| println!("Button 3"));
-    button_4.connect_clicked(move |_| println!("Button 4"));
-    button_5.connect_clicked(move |_| println!("Button 5"));
-    button_6.connect_clicked(move |_| println!("Button 6"));
-    button_7.connect_clicked(move |_| println!("Button 7"));
-    button_8.connect_clicked(move |_| println!("Button 8"));
-    button_9.connect_clicked(move |_| println!("Button 9"));
-    button_0.connect_clicked(move |_| {
-        let i: u8 = rand::random();
-        println!("Button 0: {}", i)
-    });
+    button_1.connect_clicked(clone!(
+        @strong entry =>
+        move |_| {
+            entry.insert_text("1", &mut -1);
+        }
+    ));
+    button_2.connect_clicked(clone!(
+        @strong entry =>
+        move |_| {
+            entry.insert_text("2", &mut -1);
+        }
+    ));
+    button_3.connect_clicked(clone!(
+        @strong entry =>
+        move |_| {
+            entry.insert_text("3", &mut -1);
+        }
+    ));
+    button_4.connect_clicked(clone!(
+        @strong entry =>
+        move |_| {
+            entry.insert_text("4", &mut -1);
+        }
+    ));
+    button_5.connect_clicked(clone!(
+        @strong entry =>
+        move |_| {
+            entry.insert_text("5", &mut -1);
+        }
+    ));
+    button_6.connect_clicked(clone!(
+        @strong entry =>
+        move |_| {
+            entry.insert_text("6", &mut -1);
+        }
+    ));
+    button_7.connect_clicked(clone!(
+        @strong entry =>
+        move |_| {
+            entry.insert_text("7", &mut -1);
+        }
+    ));
+    button_8.connect_clicked(clone!(
+        @strong entry =>
+        move |_| {
+            entry.insert_text("8", &mut -1);
+        }
+    ));
+    button_9.connect_clicked(clone!(
+        @strong entry =>
+        move |_| {
+            entry.insert_text("9", &mut -1);
+        }
+    ));
+    button_0.connect_clicked(clone!(
+        @strong entry =>
+        move |_| {
+            entry.insert_text("0", &mut -1);
+        }
+    ));
   
     // --> EXTRA BUTTONS
     let counter_label = create_label(Some("0.0"));
